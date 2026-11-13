@@ -171,6 +171,10 @@ void loop() {
     return;
   }
   sendReading(temp);
-    tempLimit = getThreshold();
+      // When the server gives no limit (404, or no answer), keep the last one.
+  float newLimit = getThreshold();
+  if (!isnan(newLimit)) {
+    tempLimit = newLimit;
+  }
   updateLed(temp);
 }
